@@ -1,16 +1,7 @@
-# the_bartender
+# The Bartender
 
-A new Flutter project.
+An Android application
 
-## Getting Started
+Make 100+ Cocktails with ingredients scattered around your home!!
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Become your very own bartender and impress your friends!! Give the app the ingredients you have around the house, and find out which cocktails you can make. This app gives you access to over 100 cocktail recipes, including all of the IBA official cocktails.
