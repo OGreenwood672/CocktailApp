@@ -49,6 +49,7 @@ List<Map<String, dynamic>> copyTree(List<Map<String, dynamic>> originalTree) {
 
 bool checkIngredientInMap(String key) {
     if (!ingredientMap.containsKey(key)) {
+        // Find key in map
         List<Map<String, dynamic>> queue = copyTree(ingredients);
         Map<String, dynamic>? res;
         while (queue.isNotEmpty && res == null) {
@@ -59,7 +60,9 @@ bool checkIngredientInMap(String key) {
                 queue.addAll(curr["contains"]);
             }
         }
+        //If not found
         if (res == null) { return false; }
+        //Check if user has the ingredient: or a subcategory of the ingredient
         List<Map<String, dynamic>> queue2 = res["contains"];
         while (queue2.isNotEmpty) {
             Map<String, dynamic> curr = queue2.removeAt(0);
@@ -72,6 +75,37 @@ bool checkIngredientInMap(String key) {
         return false;
     }
     return getIngredientMap(key);
+}
+
+bool isIngredientofType(String type, String ingredient) {
+    // Find key in map
+    List<Map<String, dynamic>> queue = copyTree(ingredients);
+    Map<String, dynamic>? res;
+    while (queue.isNotEmpty && res == null) {
+        Map<String, dynamic> curr = queue.removeAt(0);
+        if (curr["name"] == type) {
+            res = curr;
+        } else if (curr.containsKey("contains")) {
+            queue.addAll(curr["contains"]);
+        }
+    }
+    //If not found
+    if (res == null) { return false; }
+    //Check if user has the ingredient: or a subcategory of the ingredient
+    List<Map<String, dynamic>> queue2 = res["contains"];
+    while (queue2.isNotEmpty) {
+        Map<String, dynamic> curr = queue2.removeAt(0);
+        if (curr["name"] == ingredient) {
+            return true;
+        } else if (curr.containsKey("contains")) {
+            queue2.addAll(curr["contains"]);
+        }
+    }
+    return false;
+}
+
+List<Map<String, dynamic>> getCocktailsByName(List<String> cocktailNames) {
+    return cocktailNames.map((cocktailName) => getCocktailByName(cocktailName)).toList();
 }
 
 List<String> getMakeableCocktails() {
@@ -149,4 +183,53 @@ List<String> getNamesOfSubItems(String item) {
     }
     return res;
 
+}
+
+List<String> getMissingCocktails(int numberToReturn) {
+    List<List<dynamic>> cocktailsWithWeights = [];
+    
+    Map<String, int> extraWeights = {
+        "spirits": 5,
+        "aperitifs": 3,
+    };
+
+    for (Map<String, dynamic> cocktail in cocktails) {
+
+        int weight = 0;
+        for (List<String> ingredient in cocktail["ingredients"]) {
+
+            if (!checkIngredientInMap(ingredient[0])) {
+                weight += 2;
+                for (String type in extraWeights.keys) {
+                    if (isIngredientofType(type, ingredient[0])) {
+                        weight += extraWeights[type]!;
+                    }
+                }
+            }
+        }
+
+        int index = 0;
+        bool found = false;
+        for (List<dynamic> otherCocktail in cocktailsWithWeights) {
+            if (weight < otherCocktail[1]) {
+                cocktailsWithWeights.insert(index, [cocktail["name"], weight]);
+                found = true;
+                break;
+            }
+
+            index++;
+        }
+        if (!found) {
+            cocktailsWithWeights.add([cocktail["name"], weight]);
+        }
+
+    }
+    List<String> toReturn = [];
+    while (cocktailsWithWeights.isNotEmpty && toReturn.length != numberToReturn) {
+        var cocktailWithWeight = cocktailsWithWeights.removeAt(0);
+        if (cocktailWithWeight[1] != 0) {
+            toReturn.add(cocktailWithWeight[0]);
+        }
+    }
+    return toReturn;
 }

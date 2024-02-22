@@ -1,12 +1,14 @@
 import "package:the_bartender/colour_scheme.dart";
+import "package:the_bartender/data_handling.dart";
 import "package:the_bartender/helper_functions.dart";
 import "package:flutter/material.dart";
 
 
 class CocktailDisplayPage extends StatelessWidget {
 
-    const CocktailDisplayPage({super.key, required this.cocktailInfo});
+    const CocktailDisplayPage({super.key, required this.cocktailInfo, required this.displayMissing});
     final Map<String, dynamic> cocktailInfo;
+    final bool displayMissing;
 
     Widget backButton(BuildContext context) {
 
@@ -68,6 +70,14 @@ class CocktailDisplayPage extends StatelessWidget {
 
     Widget ingredientsSection(List<List<String>> ingredients) {
 
+        String getIsMissing(index) {
+            String isMissing = "";
+            if (!checkIngredientInMap(ingredients[index][0]) && displayMissing) {
+                isMissing = " [Missing]";
+            };
+            return isMissing;
+        }
+
         return Container(
             decoration: BoxDecoration(
                 color: secondaryColour,
@@ -98,7 +108,7 @@ class CocktailDisplayPage extends StatelessWidget {
                                 return Container(
                                     padding: const EdgeInsets.all(4.0),
                                     child: Text(
-                                        "• ${capitalizeFirstLetter(ingredients[index][1])} ${capitalizeEachWord(ingredients[index][0])}",
+                                        "• ${capitalizeFirstLetter(ingredients[index][1])} ${capitalizeEachWord(ingredients[index][0])}${getIsMissing(index)}",
                                         style: TextStyle(
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.w400,

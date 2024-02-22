@@ -143,10 +143,10 @@ class DisplayCocktailListState extends State<DisplayCocktailList> {
             if (cocktailInfo["premium"] && !hasPremium) {
                 premiumCount++;
             } else {
-                if (res.isEmpty) {
-                    res.add(cocktailInfo);
-                    continue;
-                }
+                // if (res.isEmpty) {
+                //     res.add(cocktailInfo);
+                //     continue;
+                // }
                 int resIndex = 0;
                 bool found = false;
                 for (Map<String, dynamic> cocktail in res) {
@@ -201,7 +201,7 @@ class DisplayCocktailListState extends State<DisplayCocktailList> {
         }
     }
 
-    Widget itemList(List<dynamic> items) {
+    Widget itemList(List<dynamic> items, bool displayMissing) {
 
         return GridView.count(
             physics: const NeverScrollableScrollPhysics(),
@@ -209,12 +209,12 @@ class DisplayCocktailListState extends State<DisplayCocktailList> {
             shrinkWrap: true,
             childAspectRatio: 150 / 195,
             children: [
-                for (int index = 0; index<results.length; index++)
+                for (int index = 0; index<items.length; index++)
                 Container(
                     padding: const EdgeInsets.all(16.0),
                     width: double.infinity,
                     height: 200,
-                    child: CocktailIcon(cocktailInfo: results[index])
+                    child: CocktailIcon(cocktailInfo: items[index], displayMissing: displayMissing)
 
                 )
             ]
@@ -229,12 +229,17 @@ class DisplayCocktailListState extends State<DisplayCocktailList> {
                 padding: const EdgeInsets.all(4.0),
                 child: ListView(
                     children: [
+
                         if (widget.addBack)
                         backButton(context),
+
                         if (widget.giveTitle)
                         addTitle(),
+
                         addSearchBar(),
-                        itemList(results),
+
+                        itemList(results, false),
+
                         if (results.isEmpty)
                         Center(child: Text(
                             "No Cocktails Found",
@@ -242,10 +247,25 @@ class DisplayCocktailListState extends State<DisplayCocktailList> {
                                 color: textColour
                             )
                         )),
+
+                        if (results.length < 10)
+                            Center(child: Text(
+                            "Cocktails you can almost make",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: textColour,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                            )
+                        )),
+                        if (results.length < 10)
+                        itemList(getCocktailsByName(getMissingCocktails(10 - results.length)), true),
+
                         if (premiumCount > 0)
                         Center(child: Text(
                             // "$premiumCount more cocktails were found with premium",
                             "More found with premium",
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: textColour
                             )

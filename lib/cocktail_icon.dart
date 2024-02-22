@@ -5,9 +5,10 @@ import "cocktail_page.dart";
 
 
 class CocktailIcon extends StatelessWidget {
-    const CocktailIcon({super.key, required this.cocktailInfo});
+    const CocktailIcon({super.key, required this.cocktailInfo, required this.displayMissing});
 
     final Map<String, dynamic> cocktailInfo;
+    final bool displayMissing;
 
     @override
     Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class CocktailIcon extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (_) => CocktailDisplayPage(cocktailInfo: cocktailInfo)
+                        builder: (_) => CocktailDisplayPage(cocktailInfo: cocktailInfo, displayMissing: displayMissing)
                     ),
                 );
             },
