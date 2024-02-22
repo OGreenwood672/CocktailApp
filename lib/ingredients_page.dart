@@ -105,12 +105,15 @@ class IngredientsPageState extends State<IngredientsPage>
     Widget calculateButton(BuildContext context) {
 
         return Align(
-            alignment: Alignment.bottomRight,
+            alignment: Alignment.bottomCenter,
             child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
                     style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(secondaryColour),
+                        backgroundColor: MaterialStateProperty.all<Color>(tertiaryColour),
+                        side: MaterialStateProperty.all<BorderSide>(
+                            BorderSide(width: 2.5, color: Colors.black), // Adjust width and color as needed
+                        ),
                     ),
                     onPressed: () {
                         Navigator.push(
@@ -120,10 +123,11 @@ class IngredientsPageState extends State<IngredientsPage>
                             ),
                         );
                     },
-                    child: Text(
-                        "Get Drinks",
-                        style: TextStyle(
-                            color: textColour
+                    child: Padding(padding: EdgeInsets.only(top: 12.5, bottom: 12.5),
+                        child: Icon(
+                            Icons.wine_bar_rounded,
+                            color: textColour,
+                            size: 35.0,
                         ),
                     )
                 )
@@ -170,7 +174,7 @@ class IngredientsPageState extends State<IngredientsPage>
                             if (showAll)
                             ingredientTabs(),
                             itemList(results),
-                            const SizedBox(height: 60,)
+                            const SizedBox(height: 75,)
                         ],
                     ),
                     calculateButton(context)

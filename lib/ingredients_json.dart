@@ -6,16 +6,16 @@ final List<Map<String, dynamic>> ingredients = [
                 "name": "whiskey",
                 "contains": [
                     {"name": "bourbon whiskey"},
+                    {"name": "irish whiskey"},
                     {"name": "rye whiskey"},
                     {"name": "scotch whiskey"},
-                    {"name": "irish whiskey"},
                 ]
             },
             {
                 "name": "gin",
                 "contains": [
-                    {"name": "london dry gin"},
                     {"name": "contemporary gin"},
+                    {"name": "london dry gin"},
                     {"name": "plymouth gin"},
                 ]
             },
@@ -23,17 +23,17 @@ final List<Map<String, dynamic>> ingredients = [
                 "name": "rum",
                 "contains": [
                     {"name": "dark rum"},
-                    {"name": "white rum"},
-                    {"name": "gold rum"},
                     {"name": "demerara rum"},
+                    {"name": "gold rum"},
+                    {"name": "white rum"},
                 ]
             },
             {
                 "name": "brandy",
                 "contains": [
+                    {"name": "apricot brandy"},
                     {"name": "calvados"},
                     {"name": "cognac"},
-                    {"name": "apricot brandy"},
                     {"name": "kirsch"},
                 ]
             },
@@ -47,24 +47,24 @@ final List<Map<String, dynamic>> ingredients = [
             {
                 "name": "wine",
                 "contains": [
+                    {"name": "lillet blanc"},
                     {"name": "red wine"},
                     {"name": "white wine"},
-                    {"name": "lillet blanc"},
                     {
                         "name": "sparkling wine",
                         "contains": [
-                            {"name": "prosecco"},
                             {"name": "champagne"},
+                            {"name": "prosecco"},
                         ]
                     }
                 ]
             },
             {"name" :"absinthe"},
-            {"name": "vodka"},
-            {"name": "port"},
             {"name": "cachaça"},
-            {"name": "tequila"},
             {"name": "pisco"},
+            {"name": "port"},
+            {"name": "vodka"},
+            {"name": "tequila"},
             {"name": "mezcal"},
             {
                 "name": "grappa",
@@ -77,76 +77,85 @@ final List<Map<String, dynamic>> ingredients = [
     {
         "name": "aperitifs",
         "contains": [
-            {"name": "campari"},
-            {"name": "crème de cacao"},
-            {"name": "maraschino"},
-            {"name": "crème de violette"},
-            {"name": "triple sec"},
-            {"name": "curaçao"},
-            {"name": "fernet-branca"},
-            {"name": "chartreuse"},
-            {"name": "drambuie"},
-            {"name": "crème de menthe"},
-            {"name": "bénédictine"},
-            {"name": "coffee liqueur"},
-            {"name": "amaretto"},
-            {"name": "galliano"},
-            {"name": "crème de cassis"},
-            {"name": "peach schnapps"},
-            {"name": "cherry liqueur"},
-            {"name": "falernum"},
-            {"name": "crème de mûre"},
-            {"name": "raspberry liqueur"},
-            {"name": "aperol"},
-            {"name": "amaro"},
-            {"name": "Passoã"},
-
-            {"name": "aromatic bitters"},
-            {"name": "peach bitters"},
-            {"name": "peychaud's bitters"},
-            {"name": "angostura bitters"},
-            {"name": "orange bitters"},
+            {
+                "name": "liqueurs",
+                "contains": [
+                    {"name": "amaretto"},
+                    {"name": "amaro"},
+                    {"name": "aperol"},
+                    {"name": "bénédictine"},
+                    {"name": "campari"},
+                    {"name": "chartreuse"},
+                    {"name": "cherry liqueur"},
+                    {"name": "coffee liqueur"},
+                    {"name": "crème de cacao"},
+                    {"name": "crème de cassis"},
+                    {"name": "crème de menthe"},
+                    {"name": "crème de mûre"},
+                    {"name": "crème de violette"},
+                    {"name": "curaçao"},
+                    {"name": "drambuie"},
+                    {"name": "falernum"},
+                    {"name": "fernet-branca"},
+                    {"name": "galliano"},
+                    {"name": "maraschino"},
+                    {"name": "Passoã"},
+                    {"name": "peach schnapps"},
+                    {"name": "raspberry liqueur"},
+                    {"name": "triple sec"},
+                ]
+            },
+            {
+                "name": "bitters",
+                "contains": [
+                    {"name": "angostura bitters"},
+                    {"name": "aromatic bitters"},
+                    {"name": "orange bitters"},
+                    {"name": "peach bitters"},
+                    {"name": "peychaud's bitters"},
+                ]
+            }
 
         ]
     },
     {
         "name": "juices",
         "contains": [
+            {"name": "apple juice"},
+            {"name": "cranberry juice"},
+            {"name": "grapefruit juice"},
             {"name": "lemon juice"},
             {"name": "lime juice"},
-            {"name": "apple juice"},
             {"name": "orange juice"},
+            {"name": "passion fruit juice"},
             {"name": "pineapple juice"},
-            {"name": "cranberry juice"},
             {"name": "sugar cane juice"},
             {"name": "tomato juice"},
-            {"name": "grapefruit juice"},
-            {"name": "passion fruit juice"}
         ]
     },
     {
         "name": "soft drinks",
         "contains": [
-            {"name": "soda water"},
             {"name": "cola"},
+            {"name": "elderflower cordial"},
             {"name": "ginger ale"},
             {"name": "ginger beer"},
             {"name": "grapefruit soda"},
-            {"name": "elderflower cordial"},
+            {"name": "soda water"},
         ]
     },
     {
         "name": "syrups",
         "contains": [
-            {"name": "simple syrup"},
-            {"name": "raspberry syrup"},
-            {"name": "cinnamon syrup"},
-            {"name": "honey syrup"},
-            {"name": "sugar syrup"},
-            {"name": "orgeat syrup"},
             {"name": "agave syrup"},
-            {"name": "strawberry syrup"},
+            {"name": "cinnamon syrup"},
             {"name": "grenadine syrup"},
+            {"name": "honey syrup"},
+            {"name": "orgeat syrup"},
+            {"name": "raspberry syrup"},
+            {"name": "simple syrup"},
+            {"name": "strawberry syrup"},
+            {"name": "sugar syrup"},
         ]
     },
     {
@@ -162,31 +171,30 @@ final List<Map<String, dynamic>> ingredients = [
             {
                 "name": "sugars",
                 "contains": [
+                    {"name": "powdered sugar"},
                     {"name": "sugar"},
                     {"name": "sugar cube"},
                     {"name": "superfine sugar"},
-                    {"name": "powdered sugar"},
                     {"name": "white cane sugar"},
                 ]
             },
-            {"name": "grenadine"},
-            {"name": "lime"},
-            {"name": "cream"},
-            {"name": "coconut cream"},
-            {"name": "orange flower water"},
-            {"name": "vanilla extract"},
-            {"name": "egg"},
-            {"name": "peach purée"},
-            {"name": "celery salt"},
             {"name": "black pepper"},
-            {"name": "coffee"},
-            {"name": "espresso"},
-            {"name": "mint leaves"},
-            {"name": "honey"},
-            {"name": "salt"},
-            {"name": "ginger"},
+            {"name": "celery salt"},
             {"name": "chamomile cordial"},
-
+            {"name": "coconut cream"},
+            {"name": "coffee"},
+            {"name": "cream"},
+            {"name": "egg"},
+            {"name": "espresso"},
+            {"name": "ginger"},
+            {"name": "grenadine"},
+            {"name": "honey"},
+            {"name": "lime"},
+            {"name": "mint leaves"},
+            {"name": "orange flower water"},
+            {"name": "peach purée"},
+            {"name": "salt"},
+            {"name": "vanilla extract"},
         ]
     }
 ];

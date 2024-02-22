@@ -1,11 +1,8 @@
-// import 'dart:async';
-// import 'dart:io';
 
 import 'package:the_bartender/colour_scheme.dart';
 import 'package:the_bartender/data_handling.dart';
 import 'package:the_bartender/premium.dart';
 import 'package:flutter/material.dart';
-// import 'package:in_app_purchase/in_app_purchase.dart';
 
 import "cocktail_icon.dart";
 
@@ -22,98 +19,6 @@ class DisplayCocktailList extends StatefulWidget {
 
 class DisplayCocktailListState extends State<DisplayCocktailList> {
 
-    // final InAppPurchase iap = InAppPurchase.instance;
-    // late StreamSubscription<List<PurchaseDetails>> _subscription;
-
-    // List<ProductDetails> _products = <ProductDetails>[];
-    // List<PurchaseDetails> _purchases = <PurchaseDetails>[];
-
-    // final String moreCocktailsID = "more_cocktails";
-
-    // bool _avaliable = false;
-
-    // @override
-    // void initState() {
-    //     _initialize();
-    //     super.initState();
-    // }
-
-    // void _initialize() async {
-
-    //     _avaliable = await iap.isAvailable();
-
-    //     if (_avaliable) {
-    //         List<Future> furtures = [_getProducts(), _getPastProducts()];
-    //         await Future.wait(furtures);
-    //         _verifyPurchase();
-    //         _subscription = iap.purchaseStream.listen((data) {setState(() {
-    //             print("purchased");
-    //             _purchases.addAll(data);
-    //         });});
-    //     } else {
-    //         setState(() {
-    //             results = getDefaultCocktails();
-    //         });
-    //     }
-
-    // }
-
-    // Future<void> _getProducts() async {
-    //     Set<String> ids = {moreCocktailsID};
-    //     ProductDetailsResponse response = await iap.queryProductDetails(ids);
-
-    //     setState(() {
-    //         _products = response.productDetails;
-    //     });
-    // }
-
-    // Future<void> _getPastProducts() async {
-
-    //     // _purchases = Map<String, PurchaseDetails>.fromEntries(
-    //     //     _purchases.map((PurchaseDetails purchase) {
-    //     //     if (purchase.pendingCompletePurchase) {
-    //     //         iap.completePurchase(purchase);
-    //     //     }
-    //     //     return PurchaseDetails(purchase);
-    //     // }));
-    //     // QueryPurchaseDetailsResponse response = await iap.queryPastPurchases();
-    //     Set<String> ids = {moreCocktailsID};
-    //     ProductDetailsResponse response = await InAppPurchase.instance.queryProductDetails(ids);
-
-    //     // for (PurchaseDetails purchase in response.pastPurchases) {
-    //     //     if (Platform.isIOS) {
-    //     //         iap.completePurchase(purchase);
-    //     //     }
-    //     // }
-    //     setState(() {
-    //         _purchases = response.productDetails;
-    //     });
-
-    // }
-
-    // PurchaseDetails? _hasPurchased(String productID) {
-    //     return _purchases.firstWhere( (purchase) => purchase.productID == productID, orElse: () => null);
-    // }
-
-    // void _verifyPurchase() {
-    //     PurchaseDetails? purchase = _hasPurchased(moreCocktailsID);
-
-    //     if (purchase != null && purchase.status == PurchaseStatus.purchased) {
-    //         hasPremium = true;
-    //     }
-    // }
-
-    // void _buyProduct(ProductDetails prod) {
-    //     final PurchaseParam purchaseParam = PurchaseParam(productDetails: prod);
-    //     iap.buyNonConsumable(purchaseParam: purchaseParam);
-    // }
-
-    // @override
-    // void dispose() {
-    //     _subscription.cancel();
-    //     super.dispose();
-    // }
-
     @override
     void initState() {
         super.initState();
@@ -124,7 +29,13 @@ class DisplayCocktailListState extends State<DisplayCocktailList> {
 
     late List<dynamic> results = [];
     int premiumCount = 0;
+    TextEditingController _controller = TextEditingController();
 
+    @override
+    void dispose() {
+        super.dispose();
+        _controller.dispose();
+    }
 
     Widget addTitle() {
 
@@ -138,10 +49,10 @@ class DisplayCocktailListState extends State<DisplayCocktailList> {
                         fontWeight: FontWeight.bold,
                         fontSize: 45.0,
                         color: secondaryColour
-                    ),)
+                    ),
+                )
             ),
         );
-
     }
 
     Widget buyPremium() {
@@ -183,9 +94,10 @@ class DisplayCocktailListState extends State<DisplayCocktailList> {
                 color: secondaryColour,
                 borderRadius: BorderRadius.circular(10)
             ),
-            child: TextFormField(
+            child: TextField(
+                controller: _controller,
                 decoration: InputDecoration(
-                    hintText: "Search by Name or Ingredient",
+                    hintText: 'Search by Name or Ingredient',
                     prefixIcon: Icon(
                         Icons.search,
                         size: 30,
@@ -193,8 +105,9 @@ class DisplayCocktailListState extends State<DisplayCocktailList> {
                     )
                 ),
                 onChanged: onSearch,
-            )
-        );
+                onSubmitted: onSearch
+                ),
+            );
     }
 
     Widget backButton(BuildContext context) {
@@ -230,7 +143,21 @@ class DisplayCocktailListState extends State<DisplayCocktailList> {
             if (cocktailInfo["premium"] && !hasPremium) {
                 premiumCount++;
             } else {
-                res.add(cocktailInfo);
+                if (res.isEmpty) {
+                    res.add(cocktailInfo);
+                    continue;
+                }
+                int resIndex = 0;
+                bool found = false;
+                for (Map<String, dynamic> cocktail in res) {
+                    if (cocktailInfo["name"].compareTo(cocktail["name"]) < 0) {
+                        res.insert(resIndex, cocktailInfo);
+                        found = true;
+                        break;
+                    }
+                    resIndex++;
+                }
+                if (!found) { res.add(cocktailInfo); }
             }
         }
         return res;
@@ -247,8 +174,12 @@ class DisplayCocktailListState extends State<DisplayCocktailList> {
             premiumCount = 0;
             for (String cocktail in getCocktailNames(widget.cocktails)) {
 
+                bool priority = cocktail.toLowerCase().startsWith(query.toLowerCase());
+
                 Map<String, dynamic> cocktailInfo = getCocktailByName(cocktail);
+
                 bool inName = cocktail.toLowerCase().contains(query.toLowerCase());
+
                 bool inIngredient = false;
                 for (List<String> ingredient in cocktailInfo["ingredients"]) {
                     if (ingredient[0].contains(query.toLowerCase())) {
@@ -261,7 +192,8 @@ class DisplayCocktailListState extends State<DisplayCocktailList> {
                     if (cocktailInfo["premium"] && !hasPremium) {
                         premiumCount++;
                     } else {
-                        results.add(cocktailInfo);
+                        if (priority) { results.insert(0, cocktailInfo); }
+                        else { results.add(cocktailInfo); }
                     }
                 }
             }

@@ -116,7 +116,9 @@ List<String> getCocktailNames(List<Map<String, dynamic>> cocktails) {
 
 Map<String, dynamic> getCocktailByName(String name) {
 
-    return cocktails.where((cocktail) => name == cocktail['name']).toList()[0];
+    return cocktails.where(
+        (cocktail) => name == cocktail['name']
+    ).toList()[0];
 
 }
 
