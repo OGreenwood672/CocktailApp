@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
                 colorScheme: ColorScheme.fromSeed(seedColor: tertiaryColour),
                 useMaterial3: true,
                 scaffoldBackgroundColor: primaryColour,
+                fontFamily: "Shackle",
             ),
             home: const BottomNavbar(),
         );

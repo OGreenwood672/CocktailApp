@@ -28,3 +28,10 @@ flutter:
   uses-material-design: true
   assets:
   - assets/Cocktail Images/
+  - assets/fonts/
+  fonts:
+  - family: Shackle
+    fonts:
+    - asset: assets/fonts/ShackleRegular.ttf
+    - asset: assets/fonts/ShackleItalic.ttf
+      style: italic

@@ -111,7 +111,7 @@ class CocktailDisplayPage extends StatelessWidget {
                                         "• ${capitalizeFirstLetter(ingredients[index][1])} ${capitalizeEachWord(ingredients[index][0])}${getIsMissing(index)}",
                                         style: TextStyle(
                                             fontSize: 14.0,
-                                            fontWeight: FontWeight.w400,
+                                            fontWeight: FontWeight.normal,
                                             color: textColour
                                         ),
                                     ),
@@ -128,15 +128,17 @@ class CocktailDisplayPage extends StatelessWidget {
                                         TextSpan(
                                             text: "Garnish: ",
                                             style: TextStyle(
+                                                fontFamily: "Shackle",
+                                                fontStyle: FontStyle.italic,
+                                                fontSize: 15.0,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 16.0,
                                                 color: textColour,
                                             ),
                                         ),
                                         TextSpan(
                                             text: cocktailInfo["garnish"],
                                             style: TextStyle(
-                                                fontWeight: FontWeight.normal,
+                                                fontFamily: "Shackle",
                                                 fontSize: 14.0,
                                                 color: textColour,
                                             ),
@@ -184,28 +186,29 @@ class CocktailDisplayPage extends StatelessWidget {
                                 return Container(
                                     padding: const EdgeInsets.all(8.0),
                                     width: double.infinity,
-                                    child: RichText(
-                                        text: TextSpan(
-                                            children: [
-                                                TextSpan(
-                                                    text: "Step ${index + 1}\n",
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                        fontSize: 16.0,
-                                                        color: textColour,
-                                                    ),
-                                                ),
-                                                TextSpan(
-                                                    text: method[index],
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.normal,
-                                                        fontSize: 14.0,
-                                                        color: textColour,
-                                                    ),
-                                                )
-                                            ]
-                                        ),
-                                    ),
+                                    child: Text(method[index]),
+                                    // child: RichText(
+                                    //     text: TextSpan(
+                                    //         children: [
+                                    //             TextSpan(
+                                    //                 text: "Step ${index + 1}\n",
+                                    //                 style: TextStyle(
+                                    //                     fontWeight: FontWeight.bold,
+                                    //                     fontSize: 16.0,
+                                    //                     color: textColour,
+                                    //                 ),
+                                    //             ),
+                                    //             TextSpan(
+                                    //                 text: method[index],
+                                    //                 style: TextStyle(
+                                    //                     fontWeight: FontWeight.normal,
+                                    //                     fontSize: 14.0,
+                                    //                     color: textColour,
+                                    //                 ),
+                                    //             )
+                                    //         ]
+                                    //     ),
+                                    // ),
                                 );
                             },
                         ),
