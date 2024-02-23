@@ -29,6 +29,12 @@ bool getIngredientMap(String key) {
     return ingredientMap[key] != null && ingredientMap[key]!;
 }
 
+List<String> getMainIngredientKeys() {
+
+    return ingredients.map((ingredient) => ingredient["name"].toString()).toList();
+
+}
+
 List<Map<String, dynamic>> copyTree(List<Map<String, dynamic>> originalTree) {
     List<Map<String, dynamic>> copiedTree = [];
 

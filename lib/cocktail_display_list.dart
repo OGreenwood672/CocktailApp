@@ -1,4 +1,6 @@
 
+import 'dart:math';
+
 import 'package:the_bartender/colour_scheme.dart';
 import 'package:the_bartender/data_handling.dart';
 import 'package:the_bartender/premium.dart';
@@ -30,6 +32,7 @@ class DisplayCocktailListState extends State<DisplayCocktailList> {
     late List<dynamic> results = [];
     int premiumCount = 0;
     TextEditingController _controller = TextEditingController();
+    bool searching = false;
 
     @override
     void dispose() {
@@ -44,7 +47,7 @@ class DisplayCocktailListState extends State<DisplayCocktailList> {
             child: Align(
                 alignment: Alignment.center,
                 child: Text(
-                    "Cocktails",
+                    "MENU",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 45.0,
@@ -143,10 +146,6 @@ class DisplayCocktailListState extends State<DisplayCocktailList> {
             if (cocktailInfo["premium"] && !hasPremium) {
                 premiumCount++;
             } else {
-                // if (res.isEmpty) {
-                //     res.add(cocktailInfo);
-                //     continue;
-                // }
                 int resIndex = 0;
                 bool found = false;
                 for (Map<String, dynamic> cocktail in res) {
@@ -167,6 +166,7 @@ class DisplayCocktailListState extends State<DisplayCocktailList> {
     void onSearch(String query) {
         if (query == "") {
             setState(() {
+                searching = false;
                 results = getDefaultCocktails();
             });
         } else {
@@ -197,7 +197,9 @@ class DisplayCocktailListState extends State<DisplayCocktailList> {
                     }
                 }
             }
-            setState(() {});
+            setState(() {
+                searching = true;
+            });
         }
     }
 
@@ -248,7 +250,7 @@ class DisplayCocktailListState extends State<DisplayCocktailList> {
                             )
                         )),
 
-                        if (results.length < 10)
+                        if (results.length < 10 && !searching)
                             Center(child: Text(
                             "Cocktails you can almost make",
                             textAlign: TextAlign.center,
@@ -258,12 +260,11 @@ class DisplayCocktailListState extends State<DisplayCocktailList> {
                                 fontWeight: FontWeight.bold,
                             )
                         )),
-                        if (results.length < 10)
-                        itemList(getCocktailsByName(getMissingCocktails(10 - results.length)), true),
+                        if (results.length < 10 && !searching)
+                        itemList(getCocktailsByName(getMissingCocktails(max(10 - results.length, 6))), true),
 
                         if (premiumCount > 0)
                         Center(child: Text(
-                            // "$premiumCount more cocktails were found with premium",
                             "More found with premium",
                             textAlign: TextAlign.center,
                             style: TextStyle(

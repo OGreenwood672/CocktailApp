@@ -21,8 +21,11 @@ class IngredientsPageState extends State<IngredientsPage>
     late List<String> results = [];
     bool showAll = true;
 
-    List<String> tabs = ["spirits", "aperitifs", "soft drinks", "syrups", "juices", "other"];
+    List<String> tabs = getMainIngredientKeys();
     late TabController _tabController;
+
+        TextEditingController _controller = TextEditingController();
+
 
     @override
     void initState() {
@@ -53,9 +56,10 @@ class IngredientsPageState extends State<IngredientsPage>
                 color: secondaryColour,
                 borderRadius: BorderRadius.circular(10)
             ),
-            child: TextFormField(
+            child: TextField(
+                controller: _controller,
                 decoration: InputDecoration(
-                    hintText: "Search Ingredients",
+                    hintText: 'Search Ingredients',
                     prefixIcon: Icon(
                         Icons.search,
                         size: 30,
@@ -63,7 +67,8 @@ class IngredientsPageState extends State<IngredientsPage>
                     )
                 ),
                 onChanged: onSearch,
-            )
+                onSubmitted: onSearch
+            ),
         );
     }
 
@@ -77,7 +82,11 @@ class IngredientsPageState extends State<IngredientsPage>
             showAll = false;
             results = [];
             for (String ingredient in ingredientMap.keys.toList()) {
-                if (ingredient.toLowerCase().contains(query.toLowerCase())) {
+                bool contains = ingredient.toLowerCase().contains(query.toLowerCase());
+                bool startsWith = ingredient.toLowerCase().startsWith(query.toLowerCase());
+                if (startsWith) {
+                    results.insert(0, ingredient);
+                } else if (contains) {
                     results.add(ingredient);
                 }
             }
