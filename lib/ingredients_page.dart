@@ -116,7 +116,7 @@ class IngredientsPageState extends State<IngredientsPage>
         return Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(bottom: 8.0),
                 child: ElevatedButton(
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(tertiaryColour),
@@ -133,11 +133,27 @@ class IngredientsPageState extends State<IngredientsPage>
                         );
                     },
                     child: Padding(padding: EdgeInsets.only(top: 12.5, bottom: 12.5),
-                        child: Icon(
-                            Icons.wine_bar_rounded,
-                            color: textColour,
-                            size: 35.0,
-                        ),
+                        child: SizedBox(
+                            width: 115,
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                    Icon(
+                                        Icons.wine_bar_rounded,
+                                        color: textColour,
+                                        size: 35.0,
+                                    ),
+                                    Padding(padding: EdgeInsets.only(right: 10.0),
+                                        child: Text(
+                                            "Get Drinks",
+                                            style: TextStyle(
+                                                color: textColour
+                                            )
+                                            )
+                                    )
+                                ]
+                            )
+                        )
                     )
                 )
             )
