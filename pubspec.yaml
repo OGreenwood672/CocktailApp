@@ -3,7 +3,7 @@ description: Become your own bartender with the ingredients you already have!
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.3+10
+version: 1.0.4+11
 
 environment:
   sdk: ^3.1.1

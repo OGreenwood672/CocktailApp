@@ -1553,4 +1553,31 @@ final List<Map<String, dynamic>> cocktails = [
         "garnish": "Passion fruit half and an accompanying shot glass of prosecco",
         "premium": false
     },
+    {
+        "name": "Coffee [Non-Alcoholic]",
+        "ingredients": [
+            ["coffee", "100ml"],
+        ], 
+        "method": [
+            "It's Coffee"
+        ],
+        "premium": false
+    },
+    {
+        "name": "Virgin Mary [Non-Alcoholic]",
+        "ingredients": [
+            ["tomato juice", "135ml"],
+            ["lemon juice", "15ml"],
+            ["worcestershire sauce", "2 dashes of"],
+            ["tabasco sauce", "splash of"],
+            ["celery salt", "pinch of"],
+            ["black pepper", "splash of"],
+        ],
+        "method": [
+            "Stir gently all the ingredients in a mixing glass with ice",
+            "Pour into rocks glass",
+        ],
+        "garnish": "Celery and lemon wedge",
+        "premium": false
+    },
 ];

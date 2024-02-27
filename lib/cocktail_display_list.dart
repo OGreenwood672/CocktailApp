@@ -246,6 +246,16 @@ class DisplayCocktailListState extends State<DisplayCocktailList> {
                         Center(child: Text(
                             "No Cocktails Found",
                             style: TextStyle(
+                                color: textColour,
+                                fontSize: 19.0,
+                            )
+                        )),
+
+                        if (results.isEmpty && widget.giveTitle)
+                        Center(child: Text(
+                            "Request New Cocktails to Add on Instagram (@thebartenderapp)",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
                                 color: textColour
                             )
                         )),
